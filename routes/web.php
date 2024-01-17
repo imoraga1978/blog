@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;  //se debe agregar para usar el nuevo controlador
+use App\Http\Controllers\CursoController;  //se debe agregar para usar el nuevo controlador
+use Illuminate\Routing\RouteGroup;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', HomeController::class); 
+//se usa el controlador HomeController y el metodo por defecto__invoke.
+
+Route::controller(CursoController::class)->group(function(){
+    route::get('cursos', 'index');
+    route::get('cursos/create', 'create');
+    Route::get('cursos/{curso}', 'show');
+      
 });
